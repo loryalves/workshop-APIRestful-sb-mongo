@@ -1,6 +1,7 @@
 package com.lorranealves.workshop_mongo.services;
 
 import com.lorranealves.workshop_mongo.domain.User;
+import com.lorranealves.workshop_mongo.dto.UserDTO;
 import com.lorranealves.workshop_mongo.repository.UserRepository;
 import com.lorranealves.workshop_mongo.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,13 @@ public class UserService {
     public User findById(String id){
         Optional<User> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+    }
+
+    public User insert(User obj){
+        return repo.insert(obj);
+    }
+
+    public User fromDTO(UserDTO objDto){
+        return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
     }
 }
